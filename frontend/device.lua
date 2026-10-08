@@ -2,6 +2,10 @@ local util = require("ffi/util")
 local Version = require("version")
 
 local function probeDevice()
+    -- read_pico e-reader as a remote display, see frontend/device/pico/device.lua
+    if os.getenv("KO_PICO") then
+        return require("device/pico/device")
+    end
     local platform = Version:getCurrentPlatform()
     if platform then
         if platform:sub(1, #"android") == "android" then
